@@ -1,4 +1,4 @@
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, useNavigate } from "react-router-dom"; // Added useNavigate for navigation
 import { TbFlagExclamation } from "react-icons/tb";
 import { FiCalendar } from "react-icons/fi";
 import { Typewriter } from "react-simple-typewriter";
@@ -10,6 +10,8 @@ import { useState } from "react";
 const AllLostFound = () => {
     const initialItems = useLoaderData(); // Use loader data to get the initial items
     const [items, setItems] = useState(initialItems); // Manage items with state
+    const [searchTerm, setSearchTerm] = useState(""); // State for search term
+    const navigate = useNavigate(); // Hook to navigate
 
     const handleDelete = async (id) => {
         Swal.fire({
@@ -38,8 +40,25 @@ const AllLostFound = () => {
         });
     };
 
-    if (!items || items.length === 0) {
-        return <div className="text-center mt-10">No items found.</div>;
+    // Filter items based on the search term
+    const filteredItems = items.filter(
+        (item) =>
+            item.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            item.location?.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    if (!filteredItems || filteredItems.length === 0) {
+        return (
+            <div className="text-center my-10 md:my-60">
+                <p className="text-4xl">No items found.</p>
+                <button
+                    onClick={() => navigate(-1)} // Go back to the previous page
+                    className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                >
+                    Go Back
+                </button>
+            </div>
+        );
     }
 
     return (
@@ -56,13 +75,24 @@ const AllLostFound = () => {
                 </h1>
                 <p className="mt-2 text-lg">
                     Browse through all reported items. Total items:{" "}
-                    <span className="font-bold">{items.length}</span>
+                    <span className="font-bold">{filteredItems.length}</span>
                 </p>
+            </div>
+
+            {/* Search Input */}
+            <div className="mb-6 flex justify-center">
+                <input
+                    type="text"
+                    placeholder="Search by title or location"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="px-4 py-2 border border-gray-300 rounded-md shadow-md w-1/2 md:w-1/3"
+                />
             </div>
 
             {/* Item Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                {items.map((item) => (
+                {filteredItems.map((item) => (
                     <div
                         key={item._id}
                         className="card bg-white shadow-lg rounded-lg border transition-transform hover:scale-105 duration-200"
