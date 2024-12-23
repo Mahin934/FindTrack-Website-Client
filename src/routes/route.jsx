@@ -10,6 +10,8 @@ import AddLostFoundItem from "../components/AddLostFoundItem";
 import UpdateLostFoundItem from "../components/UpdateLostFoundItem";
 import AllLostFound from "../pages/AllLostFound ";
 import LostDetails from "../pages/LostDetails";
+import MyLostFound from "../components/MyLostFound";
+import PrivateRoute from "./PrivateRoute";
 
 
 
@@ -50,6 +52,12 @@ const route = createBrowserRouter([
                 path: "lostDetails/:id",
                 element: <LostDetails></LostDetails>,
                 loader: ({ params }) => fetch(`http://localhost:5000/lostFound/${params.id}`)
+            },
+            {
+                path: "myPosts",
+                element: <PrivateRoute><MyLostFound></MyLostFound></PrivateRoute>,
+                loader: () => fetch("http://localhost:5000/lostFound")
+                
             },
         ]
     },

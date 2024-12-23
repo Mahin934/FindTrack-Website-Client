@@ -81,7 +81,7 @@ const NavBar = () => {
             </li>
             <li>
                 <NavLink
-                    to="/myCampaign"
+                    to="/myPosts"
                     onClick={closeDropdown}
                     className={({ isActive }) =>
                         isActive
@@ -89,7 +89,7 @@ const NavBar = () => {
                             : "hover:bg-gray-200 px-4 py-2 rounded-full transition"
                     }
                 >
-                    My Campaign
+                    My Posts
                 </NavLink>
             </li>
             <li>
