@@ -4,7 +4,6 @@ import Swal from "sweetalert2";
 import { AuthContext } from "../providers/AuthProvider";
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Typewriter } from "react-simple-typewriter"; // Importing Typewriter
 
 const LostDetails = () => {
     const item = useLoaderData(); // Data for the specific lost/found item
@@ -17,6 +16,34 @@ const LostDetails = () => {
 
     const navigate = useNavigate(); // For navigation
 
+    const checkUserPreviousSubmission = () => {
+        return fetch(`http://localhost:5000/recovered?email=${user?.email}`)
+            .then((res) => res.json())
+            .then((data) => {
+                // Check if the user has already recovered this item
+                if (data.some((item) => item.itemId === _id)) {
+                    Swal.fire({
+                        title: "Already Submitted",
+                        text: "You have already marked this item as recovered.",
+                        icon: "info",
+                        confirmButtonText: "Okay",
+                    });
+                    return true; // Item is already submitted
+                }
+                return false; // Item has not been submitted by this user
+            })
+            .catch((error) => {
+                Swal.fire({
+                    title: "Error",
+                    text: "Something went wrong while checking previous submissions.",
+                    icon: "error",
+                    confirmButtonText: "Okay",
+                });
+                console.error(error);
+                return true; // Assuming error means user can't proceed
+            });
+    };
+
     const handleRecover = () => {
         if (status === "recovered") {
             Swal.fire({
@@ -27,7 +54,13 @@ const LostDetails = () => {
             });
             return;
         }
-        setShowModal(true);
+
+        // Check if the user has already recovered the item
+        checkUserPreviousSubmission().then((alreadySubmitted) => {
+            if (!alreadySubmitted) {
+                setShowModal(true); // Show the modal for recovery information
+            }
+        });
     };
 
     const handleCloseModal = () => {
@@ -35,6 +68,7 @@ const LostDetails = () => {
     };
 
     const handleSubmit = () => {
+        // Prepare the recovery data
         const recoveryInfo = {
             itemId: _id,
             recoveredLocation,
@@ -44,25 +78,32 @@ const LostDetails = () => {
                 name: user?.displayName,
                 image: user?.photoURL,
             },
+            status: "recovered", // Mark the status as recovered
         };
 
-        fetch("https://your-api-endpoint/recoverItem", {
+        // Send the data to the server
+        fetch("http://localhost:5000/recovered", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(recoveryInfo),
         })
-            .then((res) => res.json())
+            .then((res) => {
+                return res.json(); // Convert to JSON
+            })
             .then((data) => {
-                if (data.updated) {
+                if (data) {
                     Swal.fire({
                         title: "Item Recovered Successfully",
                         text: "This item has been marked as recovered.",
                         icon: "success",
                         confirmButtonText: "Okay",
                     });
-                    setShowModal(false);
+                    setShowModal(false); // Close the modal
+
+                    // Optionally, update the status locally to reflect the change without a page reload
+                    item.status = "recovered";
                 } else {
                     Swal.fire({
                         title: "Error",
@@ -73,7 +114,7 @@ const LostDetails = () => {
                 }
             })
             .catch((err) => {
-                console.error(err);
+                console.error("Error submitting recovery:", err); // Log the error
                 Swal.fire({
                     title: "Error",
                     text: "Something went wrong. Please try again.",
@@ -87,17 +128,7 @@ const LostDetails = () => {
         <div>
             {/* Banner Section */}
             <div className="bg-[rgb(149,56,226)] py-16 text-center rounded-b-lg">
-                <h1 className="text-4xl font-bold text-white">
-                    <Typewriter
-                        words={["Lost & Found Details", "Helping You Reconnect", "Find What You Lost"]}
-                        loop={true}
-                        cursor
-                        cursorStyle="|"
-                        typeSpeed={70}
-                        deleteSpeed={50}
-                        delaySpeed={1000}
-                    />
-                </h1>
+                <h1 className="text-4xl font-bold text-white">Lost & Found Details</h1>
                 <p className="text-white mt-3">
                     View all the details of the lost or found item and take the necessary action.
                 </p>
@@ -193,18 +224,18 @@ const LostDetails = () => {
                                 className="w-full px-4 py-2 border rounded-lg"
                             />
                         </div>
-                        <div className="flex justify-end gap-4">
+                        <div className="mt-4 flex justify-end gap-4">
                             <button
                                 onClick={handleCloseModal}
-                                className="px-6 py-3 border border-gray-600 text-gray-600 rounded-lg hover:bg-gray-600 hover:text-white transition-colors"
+                                className="px-6 py-2 border text-gray-600 rounded-lg"
                             >
-                                Close
+                                Cancel
                             </button>
                             <button
                                 onClick={handleSubmit}
-                                className="px-6 py-3 border border-green-600 text-green-600 rounded-lg hover:bg-green-600 hover:text-white transition-colors"
+                                className="px-6 py-2 border bg-blue-600 text-white rounded-lg"
                             >
-                                Submit
+                                Submit Recovery
                             </button>
                         </div>
                     </div>
