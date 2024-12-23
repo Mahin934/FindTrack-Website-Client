@@ -41,16 +41,16 @@ const route = createBrowserRouter([
             },
             {
                 path: "addLost-found",
-                element: <AddLostFoundItem></AddLostFoundItem>,
+                element: <PrivateRoute><AddLostFoundItem></AddLostFoundItem></PrivateRoute>,
             },
             {
                 path: "updateLost-found/:id",
-                element: <UpdateLostFoundItem></UpdateLostFoundItem>,
+                element: <PrivateRoute><UpdateLostFoundItem></UpdateLostFoundItem></PrivateRoute>,
                 loader: ({ params }) => fetch(`http://localhost:5000/lostFound/${params.id}`),
             },
             {
                 path: "lostDetails/:id",
-                element: <LostDetails></LostDetails>,
+                element: <PrivateRoute><LostDetails></LostDetails></PrivateRoute>,
                 loader: ({ params }) => fetch(`http://localhost:5000/lostFound/${params.id}`)
             },
             {
