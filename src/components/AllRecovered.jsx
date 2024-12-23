@@ -1,17 +1,26 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
-import { Typewriter } from "react-simple-typewriter"; 
+import { Typewriter } from "react-simple-typewriter";
+import { FaTh, FaTable } from "react-icons/fa"; 
 
 const AllRecovered = () => {
-    const { user } = useContext(AuthContext); 
-    const userEmail = user?.email; 
-    const recoveredItems = useLoaderData(); 
+    const { user } = useContext(AuthContext);
+    const userEmail = user?.email;
+    const recoveredItems = useLoaderData();
 
     // Filter recovered items for the logged-in user
     const userRecoveredItems = recoveredItems.filter(
         (item) => item.recoveredBy?.email === userEmail
     );
+
+    // State to toggle between table and card view
+    const [isTableView, setIsTableView] = useState(true);
+
+    // Toggle view between table and card
+    const toggleView = () => {
+        setIsTableView((prevState) => !prevState);
+    };
 
     return (
         <div>
@@ -31,13 +40,29 @@ const AllRecovered = () => {
                 <p className="text-lg">View all the items you’ve successfully recovered.</p>
             </div>
 
+            {/* Toggle Button for View Mode */}
+            <div className="flex justify-center mb-4">
+                <button
+                    onClick={toggleView}
+                    className="bg-blue-500 text-white p-3 rounded-md shadow-md hover:bg-blue-600"
+                >
+                    {isTableView ? (
+                        <FaTh className="inline-block mr-2" /> // Icon for card view
+                    ) : (
+                        <FaTable className="inline-block mr-2" /> // Icon for table view
+                    )}
+                    {isTableView ? "Switch to Card View" : "Switch to Table View"}
+                </button>
+            </div>
+
             {/* Main Content */}
             <div className="container mx-auto my-10 md:mb-20">
                 {userRecoveredItems.length === 0 ? (
                     <p className="text-center text-lg text-gray-600">
                         You haven't recovered any items yet.
                     </p>
-                ) : (
+                ) : isTableView ? (
+                    // Table View
                     <div className="overflow-x-auto">
                         <table className="table-auto w-full border-collapse border border-gray-300">
                             <thead>
@@ -71,6 +96,37 @@ const AllRecovered = () => {
                                 ))}
                             </tbody>
                         </table>
+                    </div>
+                ) : (
+                    // Card View
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                        {userRecoveredItems.map((item) => (
+                            <div key={item._id} className="bg-white shadow-lg rounded-lg p-6 transition-transform transform hover:scale-105 hover:shadow-2xl">
+                                <div className="flex items-center mb-4">
+                                    <img
+                                        src={item.recoveredBy?.image}
+                                        alt={item.recoveredBy?.name}
+                                        className="w-12 h-12 rounded-full object-cover mr-4"
+                                    />
+                                    <div>
+                                        <p className="text-xl font-semibold">{item.recoveredBy?.name}</p>
+                                        <p className="text-sm text-gray-500">{item.recoveredBy?.email}</p>
+                                    </div>
+                                </div>
+
+                                <h3 className="text-2xl font-bold text-gray-800 mb-2">{item.type}</h3>
+                                <p className="text-gray-600 mb-2">
+                                    <strong>Location:</strong> {item.recoveredLocation}
+                                </p>
+                                <p className="text-gray-600 mb-2">
+                                    <strong>Recovered On:</strong> {new Date(item.recoveredDate).toLocaleDateString()}
+                                </p>
+                                <p className="text-gray-600 mb-2">
+                                    <strong>Status:</strong>{" "}
+                                    <span className="text-green-600 font-semibold">{item.status}</span>
+                                </p>
+                            </div>
+                        ))}
                     </div>
                 )}
             </div>
