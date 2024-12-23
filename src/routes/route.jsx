@@ -12,6 +12,7 @@ import AllLostFound from "../pages/AllLostFound ";
 import LostDetails from "../pages/LostDetails";
 import MyLostFound from "../components/MyLostFound";
 import PrivateRoute from "./PrivateRoute";
+import AllRecovered from "../components/AllRecovered";
 
 
 
@@ -57,6 +58,12 @@ const route = createBrowserRouter([
                 path: "myPosts",
                 element: <PrivateRoute><MyLostFound></MyLostFound></PrivateRoute>,
                 loader: () => fetch("http://localhost:5000/lostFound")
+                
+            },
+            {
+                path: "allRecovered",
+                element: <PrivateRoute><AllRecovered></AllRecovered></PrivateRoute>,
+                loader: () => fetch("http://localhost:5000/recovered")
                 
             },
         ]

@@ -70,6 +70,7 @@ const LostDetails = () => {
     const handleSubmit = () => {
         // Prepare the recovery data
         const recoveryInfo = {
+            type,
             itemId: _id,
             recoveredLocation,
             recoveredDate: recoveredDate.toISOString(),

@@ -94,7 +94,7 @@ const NavBar = () => {
             </li>
             <li>
                 <NavLink
-                    to="/donation"
+                    to="/allRecovered"
                     onClick={closeDropdown}
                     className={({ isActive }) =>
                         isActive
@@ -102,7 +102,7 @@ const NavBar = () => {
                             : "hover:bg-gray-200 px-4 py-2 rounded-full transition"
                     }
                 >
-                    My Donations
+                    All Recovered Items 
                 </NavLink>
             </li>
         </>
