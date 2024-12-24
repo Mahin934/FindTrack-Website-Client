@@ -9,10 +9,20 @@ import axios from "axios";
 const MyLostFound = () => {
     const allPosts = useLoaderData(); // Data loaded from loader
     const { user } = useContext(AuthContext); // Get logged-in user
-    const userEmail = user?.email;
+
+    // Ensure user and user.email exist before proceeding
+    if (!user || !user.email) {
+        return (
+            <div className="text-center mt-10">
+                <p className="text-gray-500 text-lg">You must be logged in to view your posts.</p>
+            </div>
+        );
+    }
+
+    const userEmail = user.email;
 
     // Filter posts by logged-in user
-    const userPosts = allPosts.filter((post) => post.contact.email === userEmail);
+    const userPosts = allPosts.filter((post) => post.contact?.email === userEmail);
     const [posts, setPosts] = useState(userPosts);
 
     const handleDelete = async (id) => {
