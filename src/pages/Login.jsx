@@ -4,6 +4,8 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { AuthContext } from "../providers/AuthProvider";
+import loginLottie from "../assets/lottie/login.json";
+import Lottie from "lottie-react";
 
 const Login = () => {
     const { userLogin, setUser, googleSignIn } = useContext(AuthContext);
@@ -57,82 +59,88 @@ const Login = () => {
     };
 
     return (
-        <div className="flex justify-center py-28">
-            <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-                <h1 className="text-center text-2xl pt-8 font-bold">Login to your account</h1>
-                <div className="divider px-8 mb-0"></div>
-                <form onSubmit={handleSubmit} className="card-body">
-                    {/* Email input */}
-                    <div className="form-control">
-                        <label className="label">
-                            <span className="label-text font-bold">Email address</span>
-                        </label>
-                        <input
-                            type="email"
-                            name="email"
-                            placeholder="Enter your email address"
-                            className="input input-bordered"
-                            required
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                    </div>
-                    {/* Password input with toggle */}
-                    <div className="form-control">
-                        <label className="label">
-                            <span className="label-text font-bold">Password</span>
-                        </label>
-                        <div className="relative">
+        <div className="flex flex-col md:flex-row items-center justify-center py-20 gap-10">
+            <div className="flex justify-center py-28">
+                <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+                    <h1 className="text-center text-2xl pt-8 font-bold">Login to your account</h1>
+                    <div className="divider px-8 mb-0"></div>
+                    <form onSubmit={handleSubmit} className="card-body">
+                        {/* Email input */}
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text font-bold">Email address</span>
+                            </label>
                             <input
-                                type={showPassword ? "text" : "password"}
-                                name="password"
-                                placeholder="Enter your password"
-                                className="input input-bordered w-full pr-10"
+                                type="email"
+                                name="email"
+                                placeholder="Enter your email address"
+                                className="input input-bordered"
                                 required
+                                onChange={(e) => setEmail(e.target.value)}
                             />
-                            <span
-                                className="absolute top-4 right-3 cursor-pointer"
-                                onClick={() => setShowPassword(!showPassword)}
-                            >
-                                {showPassword ? <FaEyeSlash /> : <FaEye />}
-                            </span>
                         </div>
-                        <label className="label">
-                            <Link
-                                to={`/forgot-password?email=${email}`}
-                                className="label-text-alt link link-hover"
+                        {/* Password input with toggle */}
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text font-bold">Password</span>
+                            </label>
+                            <div className="relative">
+                                <input
+                                    type={showPassword ? "text" : "password"}
+                                    name="password"
+                                    placeholder="Enter your password"
+                                    className="input input-bordered w-full pr-10"
+                                    required
+                                />
+                                <span
+                                    className="absolute top-4 right-3 cursor-pointer"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                >
+                                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                                </span>
+                            </div>
+                            <label className="label">
+                                <Link
+                                    to={`/forgot-password?email=${email}`}
+                                    className="label-text-alt link link-hover"
+                                >
+                                    Forgot password?
+                                </Link>
+                            </label>
+                        </div>
+
+                        {/* Submit button */}
+                        <div className="form-control mt-6">
+                            <button className="btn bg-[#403F3F] text-white">Login</button>
+                        </div>
+
+                        {/* Google Login Button */}
+                        <div className="form-control mt-4">
+                            <button
+                                type="button"
+                                className="btn bg-blue-500 text-white"
+                                onClick={handleGoogleLogin}
                             >
-                                Forgot password?
+                                Login with Google
+                            </button>
+                        </div>
+
+                        <p className="text-center pt-4 text-xs">
+                            Don’t Have An Account?{" "}
+                            <Link className="text-red-500" to="/register">
+                                Register
                             </Link>
-                        </label>
-                    </div>
+                        </p>
+                    </form>
+                </div>
 
-                    {/* Submit button */}
-                    <div className="form-control mt-6">
-                        <button className="btn bg-[#403F3F] text-white">Login</button>
-                    </div>
-
-                    {/* Google Login Button */}
-                    <div className="form-control mt-4">
-                        <button
-                            type="button"
-                            className="btn bg-blue-500 text-white"
-                            onClick={handleGoogleLogin}
-                        >
-                            Login with Google
-                        </button>
-                    </div>
-
-                    <p className="text-center pt-4 text-xs">
-                        Don’t Have An Account?{" "}
-                        <Link className="text-red-500" to="/register">
-                            Register
-                        </Link>
-                    </p>
-                </form>
+                {/* Toast Container */}
+                <ToastContainer />
             </div>
-
-            {/* Toast Container */}
-            <ToastContainer />
+            {/* Lottie Animation */}
+            <div className="w-full md:w-1/2 flex justify-center">
+                <Lottie animationData={loginLottie} style={{ maxWidth: "500px" }} />
+            </div>
         </div>
     );
 };

@@ -2,6 +2,8 @@ import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { AuthContext } from "../providers/AuthProvider";
+import registerLottie from "../assets/lottie/signUp.json";
+import Lottie from "lottie-react";
 
 const Register = () => {
     const { createNewUser, setUser, updateUserProfile, googleSignIn } = useContext(AuthContext);
@@ -67,100 +69,103 @@ const Register = () => {
     };
 
     return (
-        <div>
-            <div className="flex justify-center py-20">
-                <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-                    <h1 className="text-center text-2xl pt-8 font-bold">Register your account</h1>
-                    <div className="divider px-8 mb-0"></div>
-                    <form onSubmit={handleSubmit} className="card-body">
-                        {/* Name input */}
-                        <div className="form-control">
-                            <label className="label">
-                                <span className="label-text font-bold">Your Name</span>
-                            </label>
+        <div className="flex flex-col md:flex-row items-center justify-center py-20 gap-10">
+            {/* Register Form */}
+            <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+                <h1 className="text-center text-2xl pt-8 font-bold">Register your account</h1>
+                <div className="divider px-8 mb-0"></div>
+                <form onSubmit={handleSubmit} className="card-body">
+                    {/* Name input */}
+                    <div className="form-control">
+                        <label className="label">
+                            <span className="label-text font-bold">Your Name</span>
+                        </label>
+                        <input
+                            type="text"
+                            name="name"
+                            placeholder="Enter your name"
+                            className="input input-bordered"
+                            required
+                        />
+                    </div>
+                    {/* Photo URL input */}
+                    <div className="form-control">
+                        <label className="label">
+                            <span className="label-text font-bold">Photo URL</span>
+                        </label>
+                        <input
+                            type="text"
+                            name="photo"
+                            placeholder="Your Photo URL"
+                            className="input input-bordered"
+                            required
+                        />
+                    </div>
+                    {/* Email input */}
+                    <div className="form-control">
+                        <label className="label">
+                            <span className="label-text font-bold">Email address</span>
+                        </label>
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="Enter your email address"
+                            className="input input-bordered"
+                            required
+                        />
+                    </div>
+                    {/* Password input with toggle */}
+                    <div className="form-control">
+                        <label className="label">
+                            <span className="label-text font-bold">Password</span>
+                        </label>
+                        <div className="relative">
                             <input
-                                type="text"
-                                name="name"
-                                placeholder="Enter your name"
-                                className="input input-bordered"
+                                type={showPassword ? "text" : "password"}
+                                name="password"
+                                placeholder="Enter your password"
+                                className="input input-bordered w-full pr-10"
                                 required
                             />
-                        </div>
-                        {/* Photo URL input */}
-                        <div className="form-control">
-                            <label className="label">
-                                <span className="label-text font-bold">Photo URL</span>
-                            </label>
-                            <input
-                                type="text"
-                                name="photo"
-                                placeholder="Your Photo URL"
-                                className="input input-bordered"
-                                required
-                            />
-                        </div>
-                        {/* Email input */}
-                        <div className="form-control">
-                            <label className="label">
-                                <span className="label-text font-bold">Email address</span>
-                            </label>
-                            <input
-                                type="email"
-                                name="email"
-                                placeholder="Enter your email address"
-                                className="input input-bordered"
-                                required
-                            />
-                        </div>
-                        {/* Password input with toggle */}
-                        <div className="form-control">
-                            <label className="label">
-                                <span className="label-text font-bold">Password</span>
-                            </label>
-                            <div className="relative">
-                                <input
-                                    type={showPassword ? "text" : "password"}
-                                    name="password"
-                                    placeholder="Enter your password"
-                                    className="input input-bordered w-full pr-10"
-                                    required
-                                />
-                                <span
-                                    className="absolute top-4 right-3 cursor-pointer"
-                                    onClick={() => setShowPassword(!showPassword)}
-                                >
-                                    {showPassword ? <FaEyeSlash /> : <FaEye />}
-                                </span>
-                            </div>
-                        </div>
-
-                        {/* Display error message if exists */}
-                        {errorMessage && (
-                            <p className="text-red-500 text-xs text-center">{errorMessage}</p>
-                        )}
-
-                        <div className="form-control mt-6">
-                            <button className="btn bg-[#403F3F] text-white">Register</button>
-                        </div>
-
-                        {/* Google Sign-In button */}
-                        <div className="form-control mt-4">
-                            <button
-                                onClick={handleGoogleSignIn}
-                                className="btn btn-outline bg-blue-500 text-white"
+                            <span
+                                className="absolute top-4 right-3 cursor-pointer"
+                                onClick={() => setShowPassword(!showPassword)}
                             >
-                                Sign Up with Google
-                            </button>
+                                {showPassword ? <FaEyeSlash /> : <FaEye />}
+                            </span>
                         </div>
+                    </div>
 
-                        <p className="text-center pt-4 text-xs">
-                            Already Have An Account?{" "}
-                            <Link className="text-red-500" to="/login">
-                                Login
-                            </Link>
-                        </p>
-                    </form>
-                </div>
+                    {/* Display error message if exists */}
+                    {errorMessage && (
+                        <p className="text-red-500 text-xs text-center">{errorMessage}</p>
+                    )}
+
+                    <div className="form-control mt-6">
+                        <button className="btn bg-[#403F3F] text-white">Register</button>
+                    </div>
+
+                    {/* Google Sign-In button */}
+                    <div className="form-control mt-4">
+                        <button
+                            onClick={handleGoogleSignIn}
+                            className="btn btn-outline bg-blue-500 text-white"
+                        >
+                            Sign Up with Google
+                        </button>
+                    </div>
+
+                    <p className="text-center pt-4 text-xs">
+                        Already Have An Account?{" "}
+                        <Link className="text-red-500" to="/login">
+                            Login
+                        </Link>
+                    </p>
+                </form>
+            </div>
+            {/* Lottie Animation */}
+            <div className="w-full md:w-1/2 flex justify-center">
+                <Lottie animationData={registerLottie} style={{ maxWidth: "700px" }} />
             </div>
         </div>
     );
