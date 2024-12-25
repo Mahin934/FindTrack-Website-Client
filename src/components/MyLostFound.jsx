@@ -15,7 +15,7 @@ const MyLostFound = () => {
         const fetchPosts = async () => {
             if (user?.email) {
                 try {
-                    const response = await axios.get("http://localhost:5000/lostFound", {
+                    const response = await axios.get("https://findtrack-server.vercel.app/lostFound", {
                         withCredentials: true, // Include credentials (cookies)
                     });
                     const allPosts = response.data;
@@ -46,7 +46,7 @@ const MyLostFound = () => {
             if (result.isConfirmed) {
                 try {
                     const response = await axios.delete(
-                        `http://localhost:5000/lostFound/${id}`,
+                        `https://findtrack-server.vercel.app/lostFound/${id}`,
                         {
                             withCredentials: true, // Include credentials (cookies)
                         }

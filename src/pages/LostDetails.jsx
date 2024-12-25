@@ -17,7 +17,7 @@ const LostDetails = () => {
     const navigate = useNavigate(); // For navigation
 
     const checkUserPreviousSubmission = () => {
-        return fetch(`http://localhost:5000/recovered?email=${user?.email}`)
+        return fetch(`https://findtrack-server.vercel.app/recovered?email=${user?.email}`)
             .then((res) => res.json())
             .then((data) => {
                 // Check if the user has already recovered this item
@@ -83,7 +83,7 @@ const LostDetails = () => {
         };
 
         // Send the data to the server
-        fetch("http://localhost:5000/recovered", {
+        fetch("https://findtrack-server.vercel.app/recovered", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
