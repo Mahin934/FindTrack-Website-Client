@@ -1,12 +1,13 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import "animate.css";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import Swal from "sweetalert2"; // Import SweetAlert2 for enhanced logout alert
 
 const NavBar = () => {
     const { user, logOut } = useContext(AuthContext); // Using context for user and logout
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    const location = useLocation(); // Get the current location
 
     const toggleDropdown = () => {
         setDropdownOpen((prev) => !prev);
@@ -63,7 +64,7 @@ const NavBar = () => {
                             : "hover:bg-gray-200 px-4 py-2 rounded-full transition"
                     }
                 >
-                   All Lost & Found Listings
+                    All Lost & Found Listings
                 </NavLink>
             </li>
             <li>
@@ -107,6 +108,28 @@ const NavBar = () => {
             </li>
         </>
     );
+
+    // Update the document title dynamically based on route
+    useEffect(() => {
+        const routeTitle = () => {
+            switch (location.pathname) {
+                case "/":
+                    return "Home - FindTrack";
+                case "/allLostFound":
+                    return "All Lost & Found Listings - FindTrack";
+                case "/addLost-found":
+                    return "Add Lost & Found Item - FindTrack";
+                case "/myPosts":
+                    return "My Posts - FindTrack";
+                case "/allRecovered":
+                    return "All Recovered Items - FindTrack";
+                default:
+                    return "FindTrack";
+            }
+        };
+
+        document.title = routeTitle(); // Update document title based on current route
+    }, [location]); // Run effect whenever location changes
 
     return (
         <div className="fixed top-0 left-0 w-full z-50 bg-base-100">
