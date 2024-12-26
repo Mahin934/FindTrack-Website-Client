@@ -8,7 +8,7 @@ const Footer = () => {
                 <div>
                     <h2 className="text-lg font-semibold">Contact Us</h2>
                     <p className="text-sm">Phone: +880-1234-567890</p>
-                    <p className="text-sm">Email: support@whereisit.com</p>
+                    <p className="text-sm">Email: support@FindTrack.com</p>
                     <p className="text-sm">Address: Dhaka, Bangladesh</p>
                 </div>
 
@@ -51,16 +51,16 @@ const Footer = () => {
 
                 {/* About and Features */}
                 <div className="mt-4">
-                    <h2 className="text-lg font-semibold">About WhereIsIt</h2>
+                    <h2 className="text-lg font-semibold">About FindTrack</h2>
                     <p className="text-sm mt-2">
-                        WhereIsIt is a Lost and Found platform helping users reconnect with their lost belongings by reporting and browsing items found by others.
+                        FindTrack is a Lost and Found platform helping users reconnect with their lost belongings by reporting and browsing items found by others.
                     </p>
                 </div>
 
                 {/* Copyright Notice */}
                 <aside className="mt-6">
                     <p className="text-sm">
-                        Copyright © {new Date().getFullYear()} - All rights reserved by <span className="font-semibold">WhereIsIt</span>
+                        Copyright © {new Date().getFullYear()} - All rights reserved by <span className="font-semibold">FindTrack</span>
                     </p>
                 </aside>
             </footer>
