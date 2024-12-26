@@ -7,31 +7,46 @@ import { Typewriter } from "react-simple-typewriter";
 import axios from "axios";
 
 const MyLostFound = () => {
-    const { user } = useContext(AuthContext); // Get logged-in user
+    const { user } = useContext(AuthContext); // Get the logged-in user from Auth context
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-        // Fetch posts for the logged-in user
         const fetchPosts = async () => {
-            if (user?.email) {
-                try {
-                    const response = await axios.get("https://findtrack-server.vercel.app/lostFound", {
-                        withCredentials: true, // Include credentials (cookies)
+            try {
+                const response = await axios.get("https://findtrack-server.vercel.app/lostFound", {
+                    withCredentials: true, // Include cookies for authentication
+                });
+                if (response.data.length === 0) {
+                    // No posts found for the user
+                    Swal.fire({
+                        icon: "info",
+                        title: "No Data Found",
+                        text: "You have no posts associated with your account.",
                     });
-                    const allPosts = response.data;
-                    // Filter posts by the logged-in user's email
-                    const userPosts = allPosts.filter(
-                        (post) => post.contact?.email === user.email
-                    );
-                    setPosts(userPosts);
-                } catch (error) {
-                    console.error("Error fetching user posts:", error);
+                }
+                setPosts(response.data);
+            } catch (error) {
+                console.error("Error fetching user posts:", error);
+
+                // Check if the error is due to unauthorized access
+                if (error.response?.status === 403 || error.response?.status === 401) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Unauthorized",
+                        text: "Please log in with a verified email to view your posts.",
+                    });
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: "An unexpected error occurred. Please try again later.",
+                    });
                 }
             }
         };
 
         fetchPosts();
-    }, [user]);
+    }, []);
 
     const handleDelete = async (id) => {
         Swal.fire({
@@ -48,13 +63,11 @@ const MyLostFound = () => {
                     const response = await axios.delete(
                         `https://findtrack-server.vercel.app/lostFound/${id}`,
                         {
-                            withCredentials: true, // Include credentials (cookies)
+                            withCredentials: true, // Include cookies for authentication
                         }
                     );
                     if (response.data.deletedCount > 0) {
                         Swal.fire("Deleted!", "The item has been deleted.", "success");
-
-                        // Remove the deleted item from state
                         setPosts((prevPosts) => prevPosts.filter((post) => post._id !== id));
                     }
                 } catch (error) {

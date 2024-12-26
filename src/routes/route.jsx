@@ -25,12 +25,12 @@ const route = createBrowserRouter([
             {
                 path: "/",
                 element: <Home></Home>,
-                loader: () => fetch("https://findtrack-server.vercel.app/lostFound")
+                loader: () => fetch("https://findtrack-server.vercel.app/lostFoundAll")
             },
             {
                 path: "allLostFound",
                 element: <AllLostFound></AllLostFound>,
-                loader: () => fetch("https://findtrack-server.vercel.app/lostFound")
+                loader: () => fetch("https://findtrack-server.vercel.app/lostFoundAll")
             },
             {
                 path: "login",
@@ -58,13 +58,13 @@ const route = createBrowserRouter([
                 path: "myPosts",
                 element: <PrivateRoute><MyLostFound></MyLostFound></PrivateRoute>,
                 loader: () => fetch("https://findtrack-server.vercel.app/lostFound")
-                
+
             },
             {
                 path: "allRecovered",
                 element: <PrivateRoute><AllRecovered></AllRecovered></PrivateRoute>,
                 loader: () => fetch("https://findtrack-server.vercel.app/recovered")
-                
+
             },
         ]
     },
