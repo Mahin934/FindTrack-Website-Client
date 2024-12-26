@@ -33,7 +33,7 @@ const MyLostFound = () => {
                     Swal.fire({
                         icon: "error",
                         title: "Unauthorized",
-                        text: "Please log in with a verified email to view your posts.",
+                        text: "Please log in with a verified email to view your posts or Allow Third-Party Cookies",
                     });
                 } else {
                     Swal.fire({
