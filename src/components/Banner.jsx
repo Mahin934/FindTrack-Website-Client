@@ -48,11 +48,7 @@ const Banner = () => {
                                 Report your lost items easily and let others help you find them.
                             </p>
                         </Fade>
-                        <Fade bottom delay={400}>
-                            <button className="mt-6 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full font-bold hover:from-blue-600 hover:to-purple-600 transition-all">
-                                Report Now
-                            </button>
-                        </Fade>
+
                     </div>
                 </SwiperSlide>
 
@@ -74,11 +70,7 @@ const Banner = () => {
                                 Check out items found by others and reconnect with your belongings.
                             </p>
                         </Fade>
-                        <Fade bottom delay={400}>
-                            <button className="mt-6 px-6 py-3 bg-gradient-to-r from-green-500 to-teal-500 rounded-full font-bold hover:from-green-600 hover:to-teal-600 transition-all">
-                                Browse Items
-                            </button>
-                        </Fade>
+
                     </div>
                 </SwiperSlide>
 
@@ -100,11 +92,7 @@ const Banner = () => {
                                 Connect with a community of people working together to reunite items with their owners.
                             </p>
                         </Fade>
-                        <Fade bottom delay={400}>
-                            <button className="mt-6 px-6 py-3 bg-gradient-to-r from-pink-500 to-orange-500 rounded-full font-bold hover:from-pink-600 hover:to-orange-600 transition-all">
-                                Join Now
-                            </button>
-                        </Fade>
+
                     </div>
                 </SwiperSlide>
             </Swiper>
