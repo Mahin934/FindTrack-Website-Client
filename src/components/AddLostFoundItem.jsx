@@ -5,11 +5,11 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 
-const AddLostFoundItem = () => {
-    const { user } = useContext(AuthContext); // Get logged-in user details
+const AddLostFoundItem = ({ darkMode }) => {
+    const { user } = useContext(AuthContext);
     const [dateLost, setDateLost] = useState(null);
-    const [useImageURL, setUseImageURL] = useState(true); // Default to using URL
-    const [imageURL, setImageURL] = useState(""); // Store uploaded image URL
+    const [useImageURL, setUseImageURL] = useState(true);
+    const [imageURL, setImageURL] = useState("");
 
     const handleAddItem = async (e) => {
         e.preventDefault();
@@ -20,7 +20,7 @@ const AddLostFoundItem = () => {
         const category = form.category.value;
         const location = form.location.value;
         const imageSource = useImageURL ? form.imageURL.value : null;
-        const thumbnailURL = imageSource || ""; // Use provided URL directly if available
+        const thumbnailURL = imageSource || "";
 
         const newItem = {
             type,
@@ -67,8 +67,8 @@ const AddLostFoundItem = () => {
     };
 
     return (
-        <div className="md:container mx-auto mt-10 mb-10">
-            <div className="bg-[#F4F3F0] p-10 rounded">
+        <div className={`md:container mx-auto mt-10 mb-10 ${darkMode ? "bg-gray-900 text-white" : "bg-[#F4F3F0] text-black"}`}>
+            <div className="p-10 rounded">
                 <h3 className="text-center text-3xl font-bold mb-8">Add Lost & Found Item</h3>
                 <form onSubmit={handleAddItem} className="space-y-6">
                     {/* Post Type */}
@@ -83,9 +83,7 @@ const AddLostFoundItem = () => {
 
                     {/* Thumbnail */}
                     <div>
-                        <label className="block text-xl font-semibold mb-2">
-                            Thumbnail (Image URL)
-                        </label>
+                        <label className="block text-xl font-semibold mb-2">Thumbnail (Image URL)</label>
                         {useImageURL && (
                             <input
                                 type="url"

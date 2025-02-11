@@ -3,8 +3,9 @@ import "animate.css";
 import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import Swal from "sweetalert2"; // Import SweetAlert2 for enhanced logout alert
+import { FaMoon, FaSun } from "react-icons/fa";
 
-const NavBar = () => {
+const NavBar = ({ darkMode, setDarkMode }) => {
     const { user, logOut } = useContext(AuthContext); // Using context for user and logout
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const location = useLocation(); // Get the current location
@@ -67,7 +68,7 @@ const NavBar = () => {
                     All Lost & Found Listings
                 </NavLink>
             </li>
-    
+
             {/* Show these links only if the user is logged in */}
             {user && user?.email && (
                 <>
@@ -112,7 +113,7 @@ const NavBar = () => {
                     </li>
                 </>
             )}
-    
+
             <li>
                 <NavLink
                     to="/aboutUS"
@@ -128,7 +129,7 @@ const NavBar = () => {
             </li>
         </>
     );
-    
+
 
     // Update the document title dynamically based on route
     useEffect(() => {
@@ -203,6 +204,21 @@ const NavBar = () => {
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal space-x-3 px-1">{links}</ul>
                 </div>
+                <div>
+                    <nav className="flex justify-between items-center ">
+                        <button
+                            onClick={() => setDarkMode(!darkMode)}
+                            className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition"
+                        >
+                            {darkMode ? (
+                                <FaSun className="w-5 h-5 text-yellow-400" />
+                            ) : (
+                                <FaMoon className="w-5 h-5 text-gray-800" />
+                            )}
+                        </button>
+                    </nav>
+
+                </div>
 
                 {/* Navbar end */}
                 <div className="navbar-end">
@@ -227,7 +243,7 @@ const NavBar = () => {
                                 Log Out
                             </button>
                         </div>
-                     ) : ( 
+                    ) : (
                         <div className="join animate__heartBeat">
                             <Link
                                 to="/register"
@@ -242,7 +258,7 @@ const NavBar = () => {
                                 Log in
                             </Link>
                         </div>
-                      )} 
+                    )}
                 </div>
             </div>
         </div>
