@@ -25,7 +25,7 @@ const AllLostFound = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    const response = await axios.delete(`http://localhost:5000/lostFound/${id}`);
+                    const response = await axios.delete(`https://findtrack-server.vercel.app/lostFound/${id}`);
                     if (response.data.deletedCount > 0) {
                         Swal.fire("Deleted!", "The item has been deleted.", "success");
                         setItems((prevItems) => prevItems.filter((item) => item._id !== id));

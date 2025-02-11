@@ -47,7 +47,7 @@ const UpdateLostFoundItem = () => {
 
         // Update the item in the database using axios
         try {
-            const response = await axios.put(`http://localhost:5000/lostFound/${itemData._id}`, updatedItem, {
+            const response = await axios.put(`https://findtrack-server.vercel.app/lostFound/${itemData._id}`, updatedItem, {
                 headers: {
                     "Content-Type": "application/json",
                 },

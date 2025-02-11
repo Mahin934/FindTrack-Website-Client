@@ -25,7 +25,7 @@ const AuthProvider = ({ children }) => {
             if (currentUser?.email) {
                 const user = { email: currentUser.email };
 
-                axios.post('http://localhost:5000/jwt', user, { withCredentials: true })
+                axios.post('https://findtrack-server.vercel.app/jwt', user, { withCredentials: true })
                     .then(res => {
                         console.log('Login Token', res.data);
                         setLoading(false);
@@ -33,7 +33,7 @@ const AuthProvider = ({ children }) => {
                     )
             }
             else {
-                axios.post('http://localhost:5000/logout', {},
+                axios.post('https://findtrack-server.vercel.app/logout', {},
                     { withCredentials: true }
                 )
                     .then(res => {

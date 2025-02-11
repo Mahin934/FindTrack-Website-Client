@@ -14,7 +14,7 @@ const MyLostFound = () => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await axios.get("http://localhost:5000/lostFound", {
+                const response = await axios.get("https://findtrack-server.vercel.app/lostFound", {
                     withCredentials: true, // Include cookies for authentication
                 });
                 if (response.data.length === 0) {
@@ -62,7 +62,7 @@ const MyLostFound = () => {
             if (result.isConfirmed) {
                 try {
                     const response = await axios.delete(
-                        `http://localhost:5000/lostFound/${id}`,
+                        `https://findtrack-server.vercel.app/lostFound/${id}`,
                         {
                             withCredentials: true, // Include cookies for authentication
                         }

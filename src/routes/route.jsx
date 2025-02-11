@@ -26,12 +26,12 @@ const route = createBrowserRouter([
             {
                 path: "/",
                 element: <Home></Home>,
-                loader: () => fetch("http://localhost:5000/lostFoundAll")
+                loader: () => fetch("https://findtrack-server.vercel.app/lostFoundAll")
             },
             {
                 path: "allLostFound",
                 element: <AllLostFound></AllLostFound>,
-                loader: () => fetch("http://localhost:5000/lostFoundAll")
+                loader: () => fetch("https://findtrack-server.vercel.app/lostFoundAll")
             },
             {
                 path: "login",
@@ -52,23 +52,23 @@ const route = createBrowserRouter([
             {
                 path: "updateLost-found/:id",
                 element: <PrivateRoute><UpdateLostFoundItem></UpdateLostFoundItem></PrivateRoute>,
-                loader: ({ params }) => fetch(`http://localhost:5000/lostFound/${params.id}`),
+                loader: ({ params }) => fetch(`https://findtrack-server.vercel.app/lostFound/${params.id}`),
             },
             {
                 path: "lostDetails/:id",
                 element: <PrivateRoute><LostDetails></LostDetails></PrivateRoute>,
-                loader: ({ params }) => fetch(`http://localhost:5000/lostFound/${params.id}`)
+                loader: ({ params }) => fetch(`https://findtrack-server.vercel.app/lostFound/${params.id}`)
             },
             {
                 path: "myPosts",
                 element: <PrivateRoute><MyLostFound></MyLostFound></PrivateRoute>,
-                loader: () => fetch("http://localhost:5000/lostFound")
+                loader: () => fetch("https://findtrack-server.vercel.app/lostFound")
 
             },
             {
                 path: "allRecovered",
                 element: <PrivateRoute><AllRecovered></AllRecovered></PrivateRoute>,
-                loader: () => fetch("http://localhost:5000/recovered")
+                loader: () => fetch("https://findtrack-server.vercel.app/recovered")
 
             },
         ]
