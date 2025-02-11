@@ -13,6 +13,7 @@ import LostDetails from "../pages/LostDetails";
 import MyLostFound from "../components/MyLostFound";
 import PrivateRoute from "./PrivateRoute";
 import AllRecovered from "../components/AllRecovered";
+import AboutUs from "../components/AboutUs";
 
 
 
@@ -25,12 +26,12 @@ const route = createBrowserRouter([
             {
                 path: "/",
                 element: <Home></Home>,
-                loader: () => fetch("https://findtrack-server.vercel.app/lostFoundAll")
+                loader: () => fetch("http://localhost:5000/lostFoundAll")
             },
             {
                 path: "allLostFound",
                 element: <AllLostFound></AllLostFound>,
-                loader: () => fetch("https://findtrack-server.vercel.app/lostFoundAll")
+                loader: () => fetch("http://localhost:5000/lostFoundAll")
             },
             {
                 path: "login",
@@ -41,29 +42,33 @@ const route = createBrowserRouter([
                 element: <Register></Register>,
             },
             {
+                path: "aboutUS",
+                element: <AboutUs></AboutUs>,
+            },
+            {
                 path: "addLost-found",
                 element: <PrivateRoute><AddLostFoundItem></AddLostFoundItem></PrivateRoute>,
             },
             {
                 path: "updateLost-found/:id",
                 element: <PrivateRoute><UpdateLostFoundItem></UpdateLostFoundItem></PrivateRoute>,
-                loader: ({ params }) => fetch(`https://findtrack-server.vercel.app/lostFound/${params.id}`),
+                loader: ({ params }) => fetch(`http://localhost:5000/lostFound/${params.id}`),
             },
             {
                 path: "lostDetails/:id",
                 element: <PrivateRoute><LostDetails></LostDetails></PrivateRoute>,
-                loader: ({ params }) => fetch(`https://findtrack-server.vercel.app/lostFound/${params.id}`)
+                loader: ({ params }) => fetch(`http://localhost:5000/lostFound/${params.id}`)
             },
             {
                 path: "myPosts",
                 element: <PrivateRoute><MyLostFound></MyLostFound></PrivateRoute>,
-                loader: () => fetch("https://findtrack-server.vercel.app/lostFound")
+                loader: () => fetch("http://localhost:5000/lostFound")
 
             },
             {
                 path: "allRecovered",
                 element: <PrivateRoute><AllRecovered></AllRecovered></PrivateRoute>,
-                loader: () => fetch("https://findtrack-server.vercel.app/recovered")
+                loader: () => fetch("http://localhost:5000/recovered")
 
             },
         ]

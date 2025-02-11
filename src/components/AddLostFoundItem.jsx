@@ -38,7 +38,7 @@ const AddLostFoundItem = () => {
 
         // Save the item to the database using axios
         try {
-            const response = await axios.post("https://findtrack-server.vercel.app/lostFound", newItem, {
+            const response = await axios.post("http://localhost:5000/lostFound", newItem, {
                 headers: {
                     "Content-Type": "application/json",
                 },

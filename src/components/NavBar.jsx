@@ -106,6 +106,19 @@ const NavBar = () => {
                     All Recovered Items 
                 </NavLink>
             </li>
+            <li>
+                <NavLink
+                    to="/aboutUS"
+                    onClick={closeDropdown}
+                    className={({ isActive }) =>
+                        isActive
+                            ? "text-white font-semibold rounded-full shadow-md bg-gradient-to-r from-blue-300 via-sky-500 to-indigo-500 hover:from-blue-400 hover:via-sky-600 hover:to-indigo-600 transition px-4 py-2"
+                            : "hover:bg-gray-200 px-4 py-2 rounded-full transition"
+                    }
+                >
+                    AboutUs
+                </NavLink>
+            </li>
         </>
     );
 
@@ -123,6 +136,8 @@ const NavBar = () => {
                     return "My Posts - FindTrack";
                 case "/allRecovered":
                     return "All Recovered Items - FindTrack";
+                case "/aboutUS":
+                    return "AboutUS - FindTrack";
                 default:
                     return "FindTrack";
             }
@@ -132,7 +147,7 @@ const NavBar = () => {
     }, [location]); // Run effect whenever location changes
 
     return (
-        <div className="fixed top-0 left-0 w-full z-50 bg-base-100">
+        <div className="fixed top-0 left-0 w-full z-50 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-500 shadow-lg">
             <div className="navbar p-0 md:p-2 md:container mx-auto">
                 {/* Navbar start */}
                 <div className="navbar-start">
@@ -171,6 +186,7 @@ const NavBar = () => {
                     <a
                         className="btn border-none text-white font-semibold md:text-2xl bg-gradient-to-r from-blue-300 via-sky-500 to-indigo-500 animate__hinge"
                     >
+                        <img src="https://i.ibb.co.com/cS7fWW7b/Screenshot-2025-01-31-141801.png" alt="" className="w-10 rounded-lg" />
                         FindTrack
                     </a>
                 </div>

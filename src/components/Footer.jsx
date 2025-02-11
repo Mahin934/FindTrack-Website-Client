@@ -4,6 +4,10 @@ const Footer = () => {
     return (
         <div>
             <footer className="footer footer-center bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-600 text-white p-10 rounded-lg shadow-lg">
+                {/* Logo */}
+                <div>
+                    <img className="w-32" src="https://i.ibb.co.com/cS7fWW7b/Screenshot-2025-01-31-141801.png" alt="" />
+                </div>
                 {/* Contact Information */}
                 <div>
                     <h2 className="text-lg font-semibold">Contact Us</h2>
