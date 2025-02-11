@@ -67,45 +67,52 @@ const NavBar = () => {
                     All Lost & Found Listings
                 </NavLink>
             </li>
-            <li>
-                <NavLink
-                    to="/addLost-found"
-                    onClick={closeDropdown}
-                    className={({ isActive }) =>
-                        isActive
-                            ? "text-white font-semibold rounded-full shadow-md bg-gradient-to-r from-blue-300 via-sky-500 to-indigo-500 hover:from-blue-400 hover:via-sky-600 hover:to-indigo-600 transition px-4 py-2"
-                            : "hover:bg-gray-200 px-4 py-2 rounded-full transition"
-                    }
-                >
-                    Add Lost & Found Item
-                </NavLink>
-            </li>
-            <li>
-                <NavLink
-                    to="/myPosts"
-                    onClick={closeDropdown}
-                    className={({ isActive }) =>
-                        isActive
-                            ? "text-white font-semibold rounded-full shadow-md bg-gradient-to-r from-blue-300 via-sky-500 to-indigo-500 hover:from-blue-400 hover:via-sky-600 hover:to-indigo-600 transition px-4 py-2"
-                            : "hover:bg-gray-200 px-4 py-2 rounded-full transition"
-                    }
-                >
-                    My Posts
-                </NavLink>
-            </li>
-            <li>
-                <NavLink
-                    to="/allRecovered"
-                    onClick={closeDropdown}
-                    className={({ isActive }) =>
-                        isActive
-                            ? "text-white font-semibold rounded-full shadow-md bg-gradient-to-r from-blue-300 via-sky-500 to-indigo-500 hover:from-blue-400 hover:via-sky-600 hover:to-indigo-600 transition px-4 py-2"
-                            : "hover:bg-gray-200 px-4 py-2 rounded-full transition"
-                    }
-                >
-                    All Recovered Items 
-                </NavLink>
-            </li>
+    
+            {/* Show these links only if the user is logged in */}
+            {user && user?.email && (
+                <>
+                    <li>
+                        <NavLink
+                            to="/addLost-found"
+                            onClick={closeDropdown}
+                            className={({ isActive }) =>
+                                isActive
+                                    ? "text-white font-semibold rounded-full shadow-md bg-gradient-to-r from-blue-300 via-sky-500 to-indigo-500 hover:from-blue-400 hover:via-sky-600 hover:to-indigo-600 transition px-4 py-2"
+                                    : "hover:bg-gray-200 px-4 py-2 rounded-full transition"
+                            }
+                        >
+                            Add Lost & Found Item
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink
+                            to="/myPosts"
+                            onClick={closeDropdown}
+                            className={({ isActive }) =>
+                                isActive
+                                    ? "text-white font-semibold rounded-full shadow-md bg-gradient-to-r from-blue-300 via-sky-500 to-indigo-500 hover:from-blue-400 hover:via-sky-600 hover:to-indigo-600 transition px-4 py-2"
+                                    : "hover:bg-gray-200 px-4 py-2 rounded-full transition"
+                            }
+                        >
+                            My Posts
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink
+                            to="/allRecovered"
+                            onClick={closeDropdown}
+                            className={({ isActive }) =>
+                                isActive
+                                    ? "text-white font-semibold rounded-full shadow-md bg-gradient-to-r from-blue-300 via-sky-500 to-indigo-500 hover:from-blue-400 hover:via-sky-600 hover:to-indigo-600 transition px-4 py-2"
+                                    : "hover:bg-gray-200 px-4 py-2 rounded-full transition"
+                            }
+                        >
+                            All Recovered Items
+                        </NavLink>
+                    </li>
+                </>
+            )}
+    
             <li>
                 <NavLink
                     to="/aboutUS"
@@ -121,6 +128,7 @@ const NavBar = () => {
             </li>
         </>
     );
+    
 
     // Update the document title dynamically based on route
     useEffect(() => {
@@ -148,7 +156,7 @@ const NavBar = () => {
 
     return (
         <div className="fixed top-0 left-0 w-full z-50 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-500 shadow-lg">
-            <div className="navbar p-0 md:p-2 md:container mx-auto">
+            <div className="navbar p-0 md:py-2 md:container mx-auto">
                 {/* Navbar start */}
                 <div className="navbar-start">
                     <div className="dropdown">
